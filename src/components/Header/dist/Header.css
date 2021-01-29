@@ -1,0 +1,17 @@
+.header__inside {
+  display: flex;
+}
+
+.nav {
+  display: block;
+  width: 100%;
+}
+.nav__list {
+  display: flex;
+  align-items: center;
+}
+
+.basket-icon {
+  display: block;
+  padding: 5px;
+}

@@ -1,0 +1,9 @@
+.list-item {
+  display: flex;
+  width: 25%;
+  padding: 20px;
+}
+.list-item__inner {
+  display: flex;
+  flex-direction: column;
+}
