@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
 import rootReducer from './redux/rootReducer';
-import App from './components/App/App.jsx'
+import App from './components/App/App.jsx';
 // import reportWebVitals from './js/reportWebVitals';
-import { initialState } from './js/additional';
+import initialState from './js/additional';
 import { asyncSearch , basketChange } from './js/functions';
 
 import './css/index.sass';
@@ -20,13 +20,11 @@ const stateLog = () => console.log(store.getState());
 const renderHandler = () => {
     ReactDOM.render(
         <Provider store={store}>
-            <App store={store} callbacks={{ asyncSearch: asyncSearch , basketChange: basketChange}} />
+            <App store={store} callbacks={{ asyncSearch: asyncSearch , basketChange: basketChange, dispatch: store.dispatch}} />
         </Provider>,
         rootEl
     );
 }
-
-window.reRender = renderHandler;
 
 store.subscribe(() => { renderHandler(); stateLog() });
 

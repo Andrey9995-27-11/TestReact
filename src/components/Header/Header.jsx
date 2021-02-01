@@ -1,6 +1,7 @@
 import React, {} from 'react';
 import { NavLink } from 'react-router-dom';
 
+import BasketIcon from '../../img/header/Basket';
 import './Header.sass';
 
 const Header = (props) => {
@@ -10,11 +11,14 @@ const Header = (props) => {
                 <div className="header__inside">
                     <nav className="nav">
                         <ul className="nav__list">
-                            <li className="nav__item">
-                                <NavLink exact to="/" className="link-to-main">В список</NavLink>
+                            <li className="nav-item">
+                                <NavLink exact to="/" className="nav-link">Главная</NavLink>
                             </li>
-                            <li className="nav__item">
-                                <NavLink to="/basket" className="basket-icon" >Корзина {props.count}</NavLink>
+                            <li className="nav-item  nav-item--basket">
+                                <NavLink to="/basket" className="basket-link">
+                                    <BasketIcon />
+                                    <span className={'basket-link__count  '+(props.count < 1 ? 'basket-link__count--hidden' : '')}>{props.count}</span>
+                                </NavLink>
                             </li>
                         </ul>
                     </nav>

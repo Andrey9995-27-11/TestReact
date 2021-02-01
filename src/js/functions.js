@@ -6,11 +6,6 @@ const asyncSearch = (query) => {
             .then(res => res.json())
             .then(res => {
                 if (res.results !== undefined) {
-                    res.results.map((result) => {
-                        result.ID = result.trackId || result.collectionId; 
-                        result.NAME = result.trackName || result.collectionName;
-                        result.PRICE = result.trackPrice || result.collectionPrice;
-                    });
                     setTimeout(() => {
                         dispatch({ type: SEARCH , value: res })
                     }, 1000);
@@ -24,7 +19,7 @@ const basketChange = (item , type) => {
     switch (type) {
         case BASKET_ADD:
         case BASKET_REMOVE:
-            return dispatch => {
+            return (dispatch) => {
                 setTimeout(() => {
                     dispatch({ type: type , value: item })
                 }, 100);
@@ -34,4 +29,16 @@ const basketChange = (item , type) => {
     }
 }
 
-export { asyncSearch , basketChange };
+const objFilter = (obj, callback) => {
+    let newObj = {};
+    for (let key in obj) if (callback(key, obj[key])) newObj[key] = obj[key];
+    return newObj;
+}
+
+const objMapToArray = (obj, callback) => {
+    let newArr = [];
+    for (let key in obj) newArr.push(callback(key, obj[key]));
+    return newArr;
+}
+
+export { asyncSearch , basketChange , objFilter , objMapToArray };

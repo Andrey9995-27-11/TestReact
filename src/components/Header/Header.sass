@@ -1,6 +1,14 @@
+=imgPath($property)
+  background-repeat: no-repeat
+  background-size: contain
+  background-position: 50% 50%
+  background-image: url("../../img/header/"+$property)
+
 .header
+    border-bottom: 2px solid #000
     &__inside
         display: flex
+        padding: 20px 0
 
 .nav
     display: block
@@ -8,7 +16,50 @@
     &__list
         display: flex
         align-items: center
+.nav-item
+    &--basket
+        margin-left: auto
+        color: #000000
 
-.basket-icon
+.nav-link
+    font-size: 14px
+    text-transform: uppercase
+    font-weight: 600
+
+.nav-link.active
+    cursor: default
+    pointer-events: none
+
+.basket-link
+    position: relative
     display: block
-    padding: 5px
+    width: 35px
+    height: 35px
+    font-size: 22px
+    font-weight: 600
+    // +imgPath("basket.svg")
+    svg
+        width: 100%
+        height: 100%
+    &__count
+        position: absolute
+        z-index: 1
+        top: -30%
+        right: -30%
+        display: block
+        padding: 4px
+        &--hidden
+            display: none
+        &::before
+            position: absolute
+            z-index: -1
+            content: ''
+            top: 50%
+            left: 50%
+            display: block
+            width: 130%
+            padding-top: 130%
+            border-radius: 50%
+            background: #ffffff
+            border: 2px solid #000000
+            transform: translate(-50%, -50%)

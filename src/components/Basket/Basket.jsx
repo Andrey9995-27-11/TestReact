@@ -1,12 +1,13 @@
 import React from 'react';
 
+import List from '../List/List.jsx';
 import './Basket.sass';
 
 const Basket = (props) => {
     return (
-        <div className="basket">
-
-        </div>
+        <React.Fragment>
+            {List(props)}
+        </React.Fragment>
     );
 }
 

@@ -1,27 +1,35 @@
-import React, {} from 'react';
+import React, { useState } from 'react';
 
-import { media } from '../../js/additional';
+import Selecter from './Selecter';
 import './Search.sass';
 
 const Search = (props) => {
 
+    const [term , setTerm] = useState({value:''});
+    const onChangeHandler = (e) => setTerm({value: e.target.value});
+
+    let typeValue = '';
+
+    const setSelectValue = (value) => {
+        typeValue = value !== '' || value !== 'All' ? '&media='+value : '';
+    }
+
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        let inputValue = e.target.querySelector('[name="term"]').value
-        if (inputValue === undefined || inputValue === '') return false;
-        let query = '&term='+inputValue+'&limit=20';
-        props.dispatch(props.callbacks.asyncSearch(query));
+        if (term.value === '') return false;
+        let query = '&term='+term.value+typeValue+'&limit=20';
+        props.callbacks.dispatch(props.callbacks.asyncSearch(query));
     };
-
-    const mediaTypes = Object.getOwnPropertyNames(media).map((key, indx) => <option key={indx} value={key}>{key}</option> );
 
     return (
         <form className="search" onSubmit={onSubmitHandler}>
-            <input type="text" name="term" className="search__input"/>
-            <select name="media">
-                <option value="">All</option>
-                { mediaTypes }
-            </select>
+            <div className="search__field">
+                <input type="text" name="term" onChange={onChangeHandler} className="input" value={term.value} />
+            </div>
+            <div className="search__field"><Selecter selectValue={setSelectValue}/></div>
+            <div className="search__field">
+                <button className="btn">Найти</button>
+            </div>
         </form>
     );
 }

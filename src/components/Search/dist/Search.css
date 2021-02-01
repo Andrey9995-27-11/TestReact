@@ -1,0 +1,41 @@
+.search {
+  display: flex;
+  padding: 20px 0;
+}
+.search__field {
+  margin-right: 15px;
+}
+
+.selecter {
+  position: relative;
+  z-index: 10;
+  width: 200px;
+}
+.selecter input[type=text] {
+  display: none;
+}
+.selecter .input {
+  cursor: pointer;
+}
+.selecter__list {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  display: none;
+  padding: 10px 0;
+  margin-top: 5px;
+  border: 1px solid #000000;
+  border-radius: 7px;
+  background-color: #ffffff;
+}
+.selecter__item {
+  padding: 5px 20px;
+  cursor: pointer;
+}
+.selecter__item:hover {
+  background-color: #ededed;
+}
+.selecter--active .selecter__list {
+  display: block;
+}
