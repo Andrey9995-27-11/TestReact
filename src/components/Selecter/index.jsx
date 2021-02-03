@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 
 import { media } from '../../js/additional';
 import { objFilter , objMapToArray } from '../../js/functions';
+import './styles.sass';
 
 const Selecter = (props) => {
 
@@ -19,7 +20,7 @@ const Selecter = (props) => {
         setSelecter('');
     }
 
-    console.log(media);
+    // console.log(media);
     const mediaTypes = objMapToArray(mediaType.items, (indx, element) => <li className="selecter__item" key={indx} onClick={onOptionClick} value={element.value === '' ? 'All' : element.value}>{element.name}</li> );
 
     return (

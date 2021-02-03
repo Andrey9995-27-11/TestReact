@@ -1,6 +1,8 @@
 import React from 'react';
 
-const Detail = () => {
+import './styles.sass';
+
+const Route = () => {
     return (
         <div className="detail">
 
@@ -8,4 +10,4 @@ const Detail = () => {
     );
 }
 
-export default Detail;
+export default Route;

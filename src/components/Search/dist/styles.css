@@ -1,0 +1,7 @@
+.search {
+  display: flex;
+  padding: 20px 0;
+}
+.search__field {
+  margin-right: 15px;
+}

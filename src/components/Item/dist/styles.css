@@ -1,0 +1,55 @@
+.list-item {
+  display: flex;
+  width: 20%;
+  padding: 10px;
+}
+.list-item__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 15px;
+  cursor: pointer;
+  -webkit-box-shadow: -1px -1px 9px 0px rgba(50, 50, 50, 0.47);
+  -moz-box-shadow: -1px -1px 9px 0px rgba(50, 50, 50, 0.47);
+  box-shadow: -1px -1px 9px 0px rgba(50, 50, 50, 0.47);
+}
+
+.btn-remove {
+  position: absolute;
+  top: 10px;
+  right: 13px;
+  width: 25px;
+  height: 25px;
+  border: 2px solid #000000;
+  border-radius: 6px;
+  opacity: 0.4;
+  color: #000000;
+}
+.btn-remove::after, .btn-remove::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 2px;
+  background-color: #000000;
+  transform-origin: 50% 50%;
+}
+.btn-remove::before {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+.btn-remove::after {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.btn-remove--checked {
+  border-color: red;
+  opacity: 1;
+}
+.btn-remove--checked::before, .btn-remove--checked::after {
+  color: red;
+  background-color: red;
+}
+.btn-remove--hidden {
+  display: none;
+}

@@ -1,4 +1,4 @@
-import { BASKET_ADD, BASKET_REMOVE, SEARCH } from './additional';
+import { BASKET_ADD, BASKET_REMOVE, BASKET_REMOVE_MULTI, SEARCH, TO_REMOVE } from './additional';
 
 const asyncSearch = (query) => {
     return (dispatch) => {
@@ -7,8 +7,9 @@ const asyncSearch = (query) => {
             .then(res => {
                 if (res.results !== undefined) {
                     setTimeout(() => {
+                        res.filter = query;
                         dispatch({ type: SEARCH , value: res })
-                    }, 1000);
+                    }, 500);
                 }
             });
     }
@@ -19,6 +20,7 @@ const basketChange = (item , type) => {
     switch (type) {
         case BASKET_ADD:
         case BASKET_REMOVE:
+        case BASKET_REMOVE_MULTI:
             return (dispatch) => {
                 setTimeout(() => {
                     dispatch({ type: type , value: item })
@@ -28,6 +30,9 @@ const basketChange = (item , type) => {
             return false;
     }
 }
+
+const removeBasketHandler = (item) => (dispatch) => dispatch({ type: TO_REMOVE , value: item })
+    
 
 const objFilter = (obj, callback) => {
     let newObj = {};
@@ -41,4 +46,4 @@ const objMapToArray = (obj, callback) => {
     return newArr;
 }
 
-export { asyncSearch , basketChange , objFilter , objMapToArray };
+export { asyncSearch , basketChange , removeBasketHandler, objFilter , objMapToArray };

@@ -1,10 +1,15 @@
-import React, {} from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import BasketIcon from '../../img/header/Basket';
-import './Header.sass';
+
+import './styles.sass';
+
+const mapStateToProps = state => ({ count : state.basket.results.length });
 
 const Header = (props) => {
+    const classModifier = props.count < 1 ? 'basket-link__count--hidden' : '';
     return (
         <header className="header">
             <div className="container">
@@ -15,9 +20,9 @@ const Header = (props) => {
                                 <NavLink exact to="/" className="nav-link">Главная</NavLink>
                             </li>
                             <li className="nav-item  nav-item--basket">
-                                <NavLink to="/basket" className="basket-link">
+                                <NavLink to="/basket/" className="basket-link">
                                     <BasketIcon />
-                                    <span className={'basket-link__count  '+(props.count < 1 ? 'basket-link__count--hidden' : '')}>{props.count}</span>
+                                    <span className={ 'basket-link__count  ' + classModifier }> { props.count } </span>
                                 </NavLink>
                             </li>
                         </ul>
@@ -28,4 +33,4 @@ const Header = (props) => {
     );
 }
 
-export default Header;
+export default connect(mapStateToProps)(Header);
