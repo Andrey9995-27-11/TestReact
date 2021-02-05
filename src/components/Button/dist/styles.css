@@ -9,6 +9,7 @@
   background: none;
   cursor: pointer;
   color: inherit;
+  transition: 0.2s ease;
 }
 .body.light .btn {
   border-color: var(--font-color-light);
@@ -19,7 +20,11 @@
 .btn--disable {
   background-color: #ededed;
   pointer-events: none;
+  color: var(--font-color-light) !important;
 }
 .btn--hidden {
   display: none;
+}
+.btn:hover {
+  transform: scale(1.05);
 }

@@ -17,11 +17,22 @@
         border: 1px solid #000000
         border-radius: 7px
         background-color: #ffffff
+        .body.light &
+            border-color: var(--font-color-light)
+            background-color: var(--background-color-light)
+        .body.night &
+            border-color: var(--font-color-night)
+            background-color: var(--background-color-night)
     &__item
         padding: 5px 20px
         cursor: pointer
+        .body.light &
+            color: var(--font-color-light)
+        .body.night &
+            color: var(--font-color-night)
         &:hover
             background-color: #ededed
+            color: var(--font-color-light) !important
     &--active
         .selecter
             &__list

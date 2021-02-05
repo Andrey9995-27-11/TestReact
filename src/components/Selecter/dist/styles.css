@@ -21,12 +21,27 @@
   border-radius: 7px;
   background-color: #ffffff;
 }
+.body.light .selecter__list {
+  border-color: var(--font-color-light);
+  background-color: var(--background-color-light);
+}
+.body.night .selecter__list {
+  border-color: var(--font-color-night);
+  background-color: var(--background-color-night);
+}
 .selecter__item {
   padding: 5px 20px;
   cursor: pointer;
 }
+.body.light .selecter__item {
+  color: var(--font-color-light);
+}
+.body.night .selecter__item {
+  color: var(--font-color-night);
+}
 .selecter__item:hover {
   background-color: #ededed;
+  color: var(--font-color-light) !important;
 }
 .selecter--active .selecter__list {
   display: block;
