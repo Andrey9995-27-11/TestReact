@@ -1,0 +1,24 @@
+:root {
+  --font-color-light: #000000;
+  --font-color-night: #ffffff;
+  --background-color-night: #ffffff;
+  --background-color-night: #000000;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.body.light {
+  color: var(--font-color-light);
+  background-color: var(--background-color-light);
+}
+.body.night {
+  color: var(--font-color-night);
+  background-color: var(--background-color-night);
+}
+
+.main {
+  flex-grow: 1;
+}

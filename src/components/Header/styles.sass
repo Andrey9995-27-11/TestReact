@@ -1,14 +1,12 @@
-=imgPath($property)
-  background-repeat: no-repeat
-  background-size: contain
-  background-position: 50% 50%
-  background-image: url("../../img/header/"+$property)
-
 .header
-    border-bottom: 2px solid #000
+    border-bottom: 2px solid var(--font-color-light)
     &__inside
         display: flex
         padding: 20px 0
+    .body.light &
+        border-color: var(--font-color-light)
+    .body.night &
+        border-color: var(--font-color-night)
 
 .nav
     display: block
@@ -17,9 +15,14 @@
         display: flex
         align-items: center
 .nav-item
+    &--main
+        margin-right: auto
     &--basket
         margin-left: auto
         color: #000000
+    &--toggler
+        padding: 0 20px
+        margin: 0 auto
 
 .nav-link
     font-size: 14px
@@ -37,7 +40,6 @@
     height: 35px
     font-size: 22px
     font-weight: 600
-    // +imgPath("basket.svg")
     svg
         width: 100%
         height: 100%

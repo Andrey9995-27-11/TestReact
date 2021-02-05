@@ -1,9 +1,26 @@
-import { BASKET_ADD, BASKET_REMOVE, BASKET_ADD_MULTI , BASKET_REMOVE_MULTI , SEARCH , TO_REMOVE } from '../js/additional';
+import { DETAIL } from '../js/additional';
 
-const initialState = {};
+const initialState = {
+    result : {},
+};
 
 const detailReducer = ( state = initialState, action ) => {
-    return { ...state }
+    switch (action.type) {
+        case DETAIL:
+            if (action.value === false) {
+                return initialState
+            }
+            return {
+                ...state,
+                result : action.value.results.map( element => ({
+                    ...element, 
+                    ID : element.trackId || element.collectionId,
+                    NAME : element.trackName || element.collectionName,
+                    PRICE : element.trackPrice || element.collectionPrice || element.price || 0
+                }))[0],
+            }
+    }
+    return state;
 }
 
 export default detailReducer;

@@ -4,9 +4,11 @@ import { applyMiddleware , createStore } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
+import { Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+
 import reducer from './reducers';
 import App from './components/App';
-// import initialState from './js/additional';
 
 import './css/index.sass';
 
@@ -16,9 +18,13 @@ const stateLog = () => console.log(store.getState());
 
 store.subscribe(stateLog);
 
+const history = createBrowserHistory();
+
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
+    <Provider store={ store }>
+        <Router history={ history }>
+            <App />
+        </Router>
     </Provider>,
     document.getElementById('root')
 );

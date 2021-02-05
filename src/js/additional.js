@@ -1,17 +1,4 @@
-const initialState = {
-    list : {
-        filter : '',
-        results : [],
-    },
-    basket : {
-        results : [],
-        summ : 0,
-    },
-    detail : {},
-    theme : 'light'
-};
-
-const media = {
+const MEDIA = {
     All : { 
         value: '', name : 'All',
     },
@@ -89,6 +76,10 @@ const BASKET_REMOVE = 'BASKET_REMOVE';
 const BASKET_ADD_MULTI = 'BASKET_ADD_MULTI';
 const BASKET_REMOVE_MULTI = 'BASKET_REMOVE_MULTI';
 const SEARCH = 'SEARCH';
+const DETAIL = 'DETAIL';
 const TO_REMOVE = 'TO_REMOVE';
+const LAZY = 'LAZY';
+const THEME_TOGGLE = 'THEME_TOGGLE';
+const THEME = 'THEME';
 
-export { initialState as default , media , BASKET_ADD, BASKET_REMOVE , BASKET_ADD_MULTI , BASKET_REMOVE_MULTI , SEARCH , TO_REMOVE } ;
+export { MEDIA , BASKET_ADD , BASKET_REMOVE , BASKET_ADD_MULTI , BASKET_REMOVE_MULTI , SEARCH , DETAIL , TO_REMOVE , LAZY , THEME_TOGGLE , THEME };

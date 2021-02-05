@@ -1,13 +1,20 @@
 .btn {
   display: inline-block;
   padding: 6px 20px;
-  border: 1px solid #000000;
+  border: 1px solid var(--font-color-light);
   border-radius: 7px;
   font-size: 14px;
   text-transform: uppercase;
   outline: none;
   background: none;
   cursor: pointer;
+  color: inherit;
+}
+.body.light .btn {
+  border-color: var(--font-color-light);
+}
+.body.night .btn {
+  border-color: var(--font-color-night);
 }
 .btn--disable {
   background-color: #ededed;

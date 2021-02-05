@@ -19,6 +19,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const Route = (props) => {
+    React.useEffect(()=>()=> {props.removeBasketHandler(false)},[])
     return (
         <>
             <List list={ props.list } toRemoveHandler={ props.removeBasketHandler } toRemove={ props.toremove } basketChange={ props.basketChange } />

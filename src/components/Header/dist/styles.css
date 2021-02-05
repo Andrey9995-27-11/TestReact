@@ -1,9 +1,15 @@
 .header {
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid var(--font-color-light);
 }
 .header__inside {
   display: flex;
   padding: 20px 0;
+}
+.body.light .header {
+  border-color: var(--font-color-light);
+}
+.body.night .header {
+  border-color: var(--font-color-night);
 }
 
 .nav {
@@ -15,9 +21,16 @@
   align-items: center;
 }
 
+.nav-item--main {
+  margin-right: auto;
+}
 .nav-item--basket {
   margin-left: auto;
   color: #000000;
+}
+.nav-item--toggler {
+  padding: 0 20px;
+  margin: 0 auto;
 }
 
 .nav-link {

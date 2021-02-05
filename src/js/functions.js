@@ -1,15 +1,37 @@
-import { BASKET_ADD, BASKET_REMOVE, BASKET_REMOVE_MULTI, SEARCH, TO_REMOVE } from './additional';
+import { BASKET_ADD, BASKET_REMOVE, BASKET_REMOVE_MULTI, SEARCH, DETAIL, TO_REMOVE , LAZY } from './additional';
 
-const asyncSearch = (query) => {
+const asyncSearch = (type, query = { count: false }, limit = 21) => {
+    let queryLimit = '&limit='+limit;
+    let queryOffset = query.count !== false ? '&offset='+query.count : '';
+    switch (type) {
+        case SEARCH:
+        case LAZY:
+        return (dispatch) => {
+            fetch('https://itunes.apple.com/search?'+queryOffset+query.query+queryLimit)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.results !== undefined) {
+                        setTimeout(() => {
+                            res.filter = query.query;
+                            dispatch({ type: type , value: res })
+                        }, 500);
+                    }
+                });
+        }
+    }
+
+}
+
+const detailRequest = (query) => {
+    if (query === false) {
+        return dispatch => dispatch({ type: DETAIL , value: false })
+    }
     return (dispatch) => {
-        fetch('https://itunes.apple.com/search?'+query)
+        fetch('https://itunes.apple.com/lookup?'+query)
             .then(res => res.json())
             .then(res => {
                 if (res.results !== undefined) {
-                    setTimeout(() => {
-                        res.filter = query;
-                        dispatch({ type: SEARCH , value: res })
-                    }, 500);
+                    dispatch({ type: DETAIL , value: res })
                 }
             });
     }
@@ -46,4 +68,4 @@ const objMapToArray = (obj, callback) => {
     return newArr;
 }
 
-export { asyncSearch , basketChange , removeBasketHandler, objFilter , objMapToArray };
+export { asyncSearch , basketChange , removeBasketHandler, detailRequest , objFilter , objMapToArray };

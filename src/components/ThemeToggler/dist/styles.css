@@ -1,0 +1,27 @@
+.theme-toggler {
+  text-align: center;
+  width: 50px;
+  height: 20px;
+  font-size: 12px;
+  line-height: 20px;
+  border-radius: 15px;
+  border: 1px solid var(--font-color-light);
+  background-color: var(--background-color-light);
+  cursor: pointer;
+}
+.theme-toggler::after {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--background-color-light);
+}
+.body.light .theme-toggler {
+  border-color: var(--font-color-light);
+  background-color: var(--background-color-light);
+}
+.body.night .theme-toggler {
+  border-color: var(--font-color-night);
+  background-color: var(--background-color-night);
+}

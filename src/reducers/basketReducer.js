@@ -21,7 +21,6 @@ const basketReducer = ( state = initialState, action ) => {
         }
         case BASKET_REMOVE:
         {
-            debugger
             let results = state.results.filter(element => element.ID !== action.value );
             results.forEach(element => summ += element.PRICE );
             return {
@@ -33,7 +32,6 @@ const basketReducer = ( state = initialState, action ) => {
         }
         case BASKET_REMOVE_MULTI:
         {
-            debugger
             let results = state.results.filter(element => action.value.indexOf(element.ID) < 0);
             results.forEach(element => summ += element.PRICE );
             return {
@@ -48,7 +46,7 @@ const basketReducer = ( state = initialState, action ) => {
             if (action.value === false) {
                 return {
                     ...state,
-                    toremove : []
+                    toremove : initialState.toremove
                 }
             } else if (state.toremove.indexOf(action.value) < 0) {
                 return {

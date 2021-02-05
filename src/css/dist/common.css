@@ -1,11 +1,22 @@
-* {
-  box-sizing: border-box;
+html {
+  display: flex;
+  min-height: 100%;
 }
 
 body {
+  display: flex;
+  width: 100%;
   font-family: "Roboto";
   font-size: 16px;
-  color: #000000;
+}
+
+#root {
+  display: flex;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 ul, ol, li, p {
@@ -33,4 +44,12 @@ a, a:hover, a:active, a:focus {
   border: 1px solid #000000;
   border-radius: 7px;
   font-size: 14px;
+  background: none;
+  color: inherit;
+}
+.body.light .input {
+  border-color: var(--font-color-light);
+}
+.body.night .input {
+  border-color: var(--font-color-night);
 }
