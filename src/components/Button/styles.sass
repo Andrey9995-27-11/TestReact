@@ -1,5 +1,7 @@
 .btn
+    position: relative;
     display: inline-block
+    text-align: center
     padding: 6px 20px
     border: 1px solid var(--font-color-light)
     border-radius: 7px
@@ -9,7 +11,7 @@
     background: none
     cursor: pointer
     color: inherit
-    transition: .2s ease
+    transition: transform .2s ease
     .body.light &
         border-color: var(--font-color-light)
     .body.night &
@@ -22,3 +24,6 @@
         display: none
     &:hover
         transform: scale(1.05)
+    &--waiting
+        color: transparent
+        pointer-events: none

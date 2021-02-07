@@ -16,7 +16,7 @@ const store = createStore(reducer, {}, applyMiddleware(thunk));
 
 const stateLog = () => console.log(store.getState());
 
-store.subscribe(stateLog);
+// store.subscribe(stateLog);
 
 const history = createBrowserHistory();
 

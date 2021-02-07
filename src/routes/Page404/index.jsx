@@ -3,7 +3,11 @@ import React from 'react';
 import './styles.sass';
 
 const Route = (props) => {
-  return <div className="not-found">404</div>
+  return (
+    <section className="404-page">
+      404
+    </section>
+  )
 }
 
 export default Route;

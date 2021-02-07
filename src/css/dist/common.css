@@ -38,18 +38,3 @@ a, a:hover, a:active, a:focus {
   padding: 0 20px;
   margin: 0 auto;
 }
-
-.input {
-  padding: 6px 20px;
-  border: 1px solid #000000;
-  border-radius: 7px;
-  font-size: 14px;
-  background: none;
-  color: inherit;
-}
-.body.light .input {
-  border-color: var(--font-color-light);
-}
-.body.night .input {
-  border-color: var(--font-color-night);
-}

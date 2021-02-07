@@ -1,23 +1,33 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import { MEDIA } from '../../js/additional';
 import { objFilter , objMapToArray } from '../../js/functions';
+
 import './styles.sass';
 
 const Selecter = (props) => {
 
-    const [mediaType , setMedia] = useState({ value: 'All', items: objFilter(MEDIA, (key) => (key !== 'All')) });
-    const [selecter , setSelecter] = useState('');
+    const [mediaType , setMedia] = React.useState({ value: 'All', items: objFilter(MEDIA, (key) => (key !== 'All')) });
+    const [selecter , setSelecter] = React.useState('');
 
-    const ACTIVE_CLASS = 'selecter--active';
-    const onSelectClick = () => setSelecter(selecter === '' ? ACTIVE_CLASS : '');
+    const CLASS_ACTIVE = 'selecter--active';
+    const onSelectClick = () => setSelecter(selecter === '' ? CLASS_ACTIVE : '');
 
-    const onOptionClick = (e) => {
+    React.useEffect(() => {
+        document.body.addEventListener('click', bodyClickHandler);
+        return () => document.body.removeEventListener('click', bodyClickHandler);
+    })
+
+    function onOptionClick (e) {
         e.stopPropagation();
-        let value = e.target.getAttribute('value');
+        const value = e.target.getAttribute('value');
         setMedia({ value: value, items: objFilter(MEDIA, (key) =>  (key !== value)) });
         props.selectValue(MEDIA[value].value);
         onSelectClick();
+    }
+
+    function bodyClickHandler(e) {
+        if (e.target.closest('.selecter') === null) setSelecter('');
     }
 
     const mediaTypes = objMapToArray(mediaType.items, (key, element) => <li className="selecter__item" key={ key } onClick={ onOptionClick } value={ key }>{ element.name }</li> );

@@ -1,4 +1,11 @@
 .header {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--header-height);
+  background-color: var(--background-color-light);
   border-bottom: 2px solid var(--font-color-light);
 }
 .header__inside {
@@ -6,9 +13,11 @@
   padding: 20px 0;
 }
 .body.light .header {
+  background-color: var(--background-color-light);
   border-color: var(--font-color-light);
 }
 .body.night .header {
+  background-color: var(--background-color-night);
   border-color: var(--font-color-night);
 }
 

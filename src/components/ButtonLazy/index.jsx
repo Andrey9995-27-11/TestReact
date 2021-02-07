@@ -1,9 +1,9 @@
 import React from 'react';
 
 const ButtonLazy = (props) => {
-    if (!props.lazy) return false;
     const lazyLoad = (e) => {
         e.preventDefault();
+        props.toggleIsSearching();
         props.lazyEvent({query: props.filter, count: props.count});
     }
     return (

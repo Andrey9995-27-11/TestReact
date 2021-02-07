@@ -1,5 +1,6 @@
 .btn {
   display: inline-block;
+  text-align: center;
   padding: 6px 20px;
   border: 1px solid var(--font-color-light);
   border-radius: 7px;
@@ -9,7 +10,7 @@
   background: none;
   cursor: pointer;
   color: inherit;
-  transition: 0.2s ease;
+  transition: transform 0.2s ease;
 }
 .body.light .btn {
   border-color: var(--font-color-light);

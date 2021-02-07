@@ -1,4 +1,4 @@
-import { BASKET_ADD, BASKET_REMOVE, BASKET_REMOVE_MULTI, SEARCH, DETAIL, TO_REMOVE , LAZY } from './additional';
+import { BASKET_ADD, BASKET_REMOVE, BASKET_REMOVE_MULTI, SEARCH, DETAIL, TO_REMOVE , LAZY , TOGGLE_IS_SEARCHING } from './additional';
 
 const asyncSearch = (type, query = { count: false }, limit = 21) => {
     let queryLimit = '&limit='+limit;
@@ -7,6 +7,7 @@ const asyncSearch = (type, query = { count: false }, limit = 21) => {
         case SEARCH:
         case LAZY:
         return (dispatch) => {
+
             fetch('https://itunes.apple.com/search?'+queryOffset+query.query+queryLimit)
                 .then(res => res.json())
                 .then(res => {
@@ -14,7 +15,7 @@ const asyncSearch = (type, query = { count: false }, limit = 21) => {
                         setTimeout(() => {
                             res.filter = query.query;
                             dispatch({ type: type , value: res })
-                        }, 500);
+                        }, 2000);
                     }
                 });
         }

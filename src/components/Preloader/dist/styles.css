@@ -1,0 +1,9 @@
+.preloader-icon__fill {
+  fill: var(--font-color-light);
+}
+.body.light .preloader-icon__fill {
+  fill: var(--font-color-light);
+}
+.body.night .preloader-icon__fill {
+  fill: var(--font-color-night);
+}

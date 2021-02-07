@@ -1,35 +1,30 @@
 import React from 'react';
 
-import { BASKET_ADD, BASKET_REMOVE } from '../../js/additional';
 import Item from '../Item';
+import Preloader from '../Preloader';
+
+import { BASKET_ADD, BASKET_REMOVE } from '../../js/additional';
+
 import './styles.sass';
 
 const List = (props) => {
 
     const BASKET_EVENT = props.inBasket !== undefined ? BASKET_ADD : BASKET_REMOVE;
 
-    if (props.list === undefined) {
+    let message = false;
+    if (!props.isSearching) {
+        if (props.list.length  < 1 && BASKET_EVENT === BASKET_REMOVE) {
+            message = 'Ваша корзина пуста';
+        } else if (props.list.length < 1 && props.notFound) {
+            message = 'По вашему запросу ничего не найдено';
+        } else if (props.list.length < 1) {
+            message = 'Введите поисковый запрос';
+        }
+    }
+    if (message !== false) {
         return (
             <div className="list-wrapper">
-                <ul className="list">
-                    Введите поисковый запрос...
-                </ul>
-            </div>
-        )
-    } else if (!props.list.length && BASKET_EVENT === BASKET_REMOVE) {
-        return (
-            <div className="list-wrapper">
-                <ul className="list">
-                    Ваша корзина пуста
-                </ul>
-            </div>
-        )
-    } else if (!props.list.length) {
-        return (
-            <div className="list-wrapper">
-                <ul className="list">
-                    По вашему запросу ничего не найдено
-                </ul>
+                { message }
             </div>
         )
     }
@@ -43,6 +38,9 @@ const List = (props) => {
             <ul className="list">
                 { mapItems }
             </ul>
+            { props.isSearching &&
+                <Preloader />
+            }
         </div>
     );
 }

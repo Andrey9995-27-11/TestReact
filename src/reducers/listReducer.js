@@ -1,15 +1,25 @@
-import { SEARCH , LAZY  } from '../js/additional';
+import { SEARCH , LAZY , TOGGLE_IS_SEARCHING } from '../js/additional';
 
 const initialState = {
     filter : '',
     results : [],
     lazy : false,
+    isSearching : false,
+    notFound : false,
 };
 
 const listReducer = ( state = initialState, action ) => {
     switch (action.type) {
+        case TOGGLE_IS_SEARCHING:
+        {
+            return {
+                ...state,
+                isSearching : true,
+            }
+        }
         case SEARCH:
         {
+            let notFound = action.value.results.length < 1;
             let lazy = state.lazy;
             if (action.value.results.length < 21)
                 lazy = false;
@@ -26,7 +36,9 @@ const listReducer = ( state = initialState, action ) => {
                         NAME : element.trackName || element.collectionName,
                         PRICE : element.trackPrice || element.collectionPrice || element.price || 0
                     })),
-                lazy : lazy
+                lazy : lazy,
+                notFound : notFound,
+                isSearching : false,
             };
         }
         case LAZY:
@@ -50,7 +62,8 @@ const listReducer = ( state = initialState, action ) => {
                         ID : element.trackId || element.collectionId,
                         NAME : element.trackName || element.collectionName,
                         PRICE : element.trackPrice || element.collectionPrice || element.price
-                    }))
+                    })),
+                isSearching : false,
             };
         }
     }
