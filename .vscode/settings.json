@@ -1,0 +1,7 @@
+{
+  "editor.tabSize": 2,
+  "prettier.printWidth": 100,
+  "javascript.preferences.quoteStyle": "single",
+  "prettier.requireConfig": true,
+  "prettier.singleQuote": true
+}

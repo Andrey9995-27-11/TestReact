@@ -1,0 +1,9 @@
+.basket-icon__fill {
+  fill: var(--font-color-light);
+}
+.body.light .basket-icon__fill {
+  fill: var(--font-color-light);
+}
+.body.night .basket-icon__fill {
+  fill: var(--font-color-night);
+}

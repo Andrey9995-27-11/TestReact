@@ -1,0 +1,20 @@
+\:root
+    --font-color-light: #000000
+    --font-color-night: #ffffff
+    --background-color-light: #ffffff
+    --background-color-night: #000000
+    --header-height: 77px
+
+.body
+    display: flex
+    flex-direction: column
+    width: 100%
+    &.light
+        color: var(--font-color-light)
+        background-color: var(--background-color-light)
+    &.night
+        color: var(--font-color-night)
+        background-color: var(--background-color-night)
+.main
+    flex-grow: 1
+    padding-top: calc( var(--header-height) + 20px  ) 
