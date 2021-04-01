@@ -2,7 +2,7 @@ import React from 'react'
 
 import './styles.sass'
 
-const Footer = (props) => {
+const Footer = () => {
   return <footer className="footer"></footer>
 }
 

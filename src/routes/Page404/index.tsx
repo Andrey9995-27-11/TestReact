@@ -2,7 +2,7 @@ import React from 'react'
 
 import './styles.sass'
 
-const Route = (props) => {
+const Route = () => {
   return <section className="404-page">404</section>
 }
 

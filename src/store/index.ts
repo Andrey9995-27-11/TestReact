@@ -1,7 +1,7 @@
-import DetailStore from './DetailStore'
-import BasketStore from './BasketStore'
-import ListStore from './ListStore'
-import ThemeStore from './ThemeStore'
+import { detailStore } from './DetailStore'
+import { listStore } from './ListStore'
+import { basketStore } from './BasketStore'
+import { themeStore } from './ThemeStore'
 
 class RootStore {
   public listStore
@@ -10,11 +10,13 @@ class RootStore {
   public themeStore
 
   constructor() {
-    this.listStore = new ListStore(this)
-    this.detailStore = new DetailStore(this)
-    this.basketStore = new BasketStore(this)
-    this.themeStore = new ThemeStore(this)
+    this.listStore = listStore
+    this.detailStore = detailStore
+    this.basketStore = basketStore
+    this.themeStore = themeStore
   }
 }
 
-export default RootStore
+const rootStore = new RootStore()
+
+export default rootStore

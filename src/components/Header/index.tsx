@@ -1,13 +1,17 @@
-import React from 'react'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
+import { observer } from 'mobx-react-lite'
 
-import ThemeToggler from '../ThemeToggler'
-import BasketIcon from '../BasketIcon'
+import ThemeToggler from 'components/ThemeToggler'
+import BasketIcon from 'components/BasketIcon'
 
 import './styles.sass'
 
-const Header = (props) => {
-  const classModifier = props.count < 1 ? 'basket-link__count--hidden' : ''
+import { basketStore } from 'store/BasketStore'
+
+const Header = observer(() => {
+  const classModifier =
+    basketStore.count < 1 ? 'basket-link__count--hidden' : ''
   return (
     <header className="header">
       <div className="container">
@@ -20,14 +24,13 @@ const Header = (props) => {
                 </Link>
               </li>
               <li className="nav-item  nav-item--toggler">
-                <ThemeToggler themeToggler={props.themeToggler} />
+                <ThemeToggler />
               </li>
               <li className="nav-item  nav-item--basket">
                 <Link to="/basket" className="basket-link">
                   <BasketIcon />
                   <span className={'basket-link__count  ' + classModifier}>
-                    {' '}
-                    {props.count}{' '}
+                    {basketStore.count}
                   </span>
                 </Link>
               </li>
@@ -37,6 +40,6 @@ const Header = (props) => {
       </div>
     </header>
   )
-}
+})
 
 export default Header

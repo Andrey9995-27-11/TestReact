@@ -1,27 +1,25 @@
+import { formatResult } from 'functions'
 import { makeAutoObservable } from 'mobx'
-import { observer } from 'mobx-react-lite'
 
-import { Response, ResponseFormatted } from '../interface'
+import { Response } from '../interface'
 
-class DetailStore {
-  public result = {} as ResponseFormatted
-  public rootStore
-  constructor(rootStore: any) {
-    this.rootStore = rootStore
+export class DetailStore {
+  public result: Response = {}
+  constructor() {
     makeAutoObservable(this)
   }
-  public show(value: { results: Array<Response> }) {
-    this.result = value.results.map((element) => ({
-      ...element,
-      ID: element.trackId || element.collectionId,
-      NAME: element.trackName || element.collectionName,
-      PRICE:
-        element.trackPrice || element.collectionPrice || element.price || 0,
-    }))[0]
+  public detailRequest(id: number): void {
+    fetch('https://itunes.apple.com/lookup?id=' + id)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.results) {
+          this.result = formatResult(res.results[0])
+        }
+      })
   }
   public destroy() {
-    this.result = {} as ResponseFormatted
+    this.result = {}
   }
 }
 
-export default DetailStore
+export const detailStore = new DetailStore()
