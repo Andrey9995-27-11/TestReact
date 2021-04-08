@@ -1,12 +1,10 @@
 import React from 'react'
-import Detail from 'components/Detail'
-
-import './styles.sass'
-
-import { detailStore } from 'store/DetailStore'
-import { basketStore } from 'store/BasketStore'
 import { useParams } from 'react-router'
 import { Observer } from 'mobx-react-lite'
+import { Detail } from 'components/Detail'
+import { detailStore, basketStore } from 'store'
+
+import './styles.sass'
 
 interface RouteParams {
   id: string
@@ -22,7 +20,11 @@ const Route = () => {
     <Observer>
       {() => (
         <section className="detail-page">
-          <Detail result={detailStore.result} inBasket={basketStore.inBasket} />
+          <Detail
+            result={detailStore.result}
+            inBasket={basketStore.inBasket}
+            basketHandler={basketStore.addToBasket}
+          />
         </section>
       )}
     </Observer>

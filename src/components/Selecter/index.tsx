@@ -1,16 +1,15 @@
 import React, { FC } from 'react'
-
 import { MEDIA } from './data'
 import { objFilter, objMapToArray } from 'functions'
 
 import './styles.sass'
 
-interface Selecter {
+interface SelecterProps {
   defaultType: string
   onChange?: Function
 }
 
-const Selecter: FC<Selecter> = ({ defaultType = 'All', onChange }) => {
+export const Selecter: FC<SelecterProps> = ({ defaultType, onChange }) => {
   const CLASS_ACTIVE = 'selecter--active'
   const [value, setValue] = React.useState(defaultType)
   const items = objFilter(MEDIA, (key) => key !== value)
@@ -19,9 +18,9 @@ const Selecter: FC<Selecter> = ({ defaultType = 'All', onChange }) => {
     document.body.addEventListener('click', bodyClickHandler)
     return () => document.body.removeEventListener('click', bodyClickHandler)
   })
-  function onOptionClick(e: any) {
-    e.stopPropagation()
-    const value = e.target.getAttribute('value')
+  function onOptionClick(event: any) {
+    event.stopPropagation()
+    const value = event.target.getAttribute('value')
     setValue(value)
     setSelecter('')
     onChange && onChange(value)
@@ -64,5 +63,3 @@ const Selecter: FC<Selecter> = ({ defaultType = 'All', onChange }) => {
     </div>
   )
 }
-
-export default Selecter

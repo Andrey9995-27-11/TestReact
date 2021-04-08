@@ -1,10 +1,8 @@
 import { makeAutoObservable } from 'mobx'
-
-import { Response } from '../interface'
-
+import { Response } from 'interface'
 import { formatResult } from 'functions'
 
-interface SearchValue {
+interface SearchResponse {
   results: Array<Response>
   filter: string
 }
@@ -12,24 +10,28 @@ interface SearchValue {
 interface InitParams {
   results: Array<Response>
   filter: string
-  lazy: boolean
+  lazyBtn: boolean
   notFound: boolean
   isSearching: boolean
 }
 
 export class ListStore {
+  public defaultUrl = 'https://itunes.apple.com/search?'
+  public limit = 20
   public initParams: InitParams = {
     results: [],
     filter: '',
-    lazy: false,
+    lazyBtn: false,
     notFound: false,
     isSearching: false,
   }
+
+  constructor() {
+    makeAutoObservable(this)
+  }
+
   public get results() {
     return this.initParams.results
-  }
-  public set results(value: Array<Response>) {
-    this.initParams.results = value
   }
   public get count(): number {
     return this.initParams.results.length
@@ -37,66 +39,77 @@ export class ListStore {
   public get filter() {
     return this.initParams.filter
   }
-  public set filter(value: string) {
-    this.initParams.filter = value
-  }
-  public get lazy() {
-    return this.initParams.lazy
-  }
-  public set lazy(value: boolean) {
-    this.initParams.lazy = value
+  public get lazyBtn() {
+    return this.initParams.lazyBtn
   }
   public get notFound() {
     return this.initParams.notFound
   }
-  public set notFound(value: boolean) {
-    this.initParams.notFound = value
-  }
   public get isSearching() {
     return this.initParams.isSearching
   }
-  public set isSearching(value: boolean) {
-    this.initParams.isSearching = value
-  }
-  constructor() {
-    makeAutoObservable(this)
-  }
-  public search(value: SearchValue): void {
-    this.notFound = this.lazy = !!value.results.length
-    this.filter = value.filter
-    this.results = this.results.concat(
-      value.results.map((element) => formatResult(element)),
+
+  public Search = async (filter: string) => {
+    let isSearching = true
+    let lazyBtn = false
+    let notFound = false
+    let data: SearchResponse | undefined
+
+    Object.assign(this.initParams, {
+      isSearching,
+      lazyBtn,
+      notFound,
+      filter,
+    })
+
+    const response = await fetch(
+      this.defaultUrl + filter + `&limit=${this.limit}`,
     )
-    this.isSearching = false
+    if (response.ok) data = await response.json()
+
+    notFound = !data?.results.length
+    lazyBtn = !!data && data.results.length > this.limit - 1
+    isSearching = false
+
+    Object.assign(this.initParams, {
+      results: !!data?.results.length
+        ? data.results.map((element) => formatResult(element))
+        : [],
+      isSearching,
+      lazyBtn,
+      notFound,
+    })
   }
-  public asyncSearch = ({
-    filter = this.filter,
-    type = 'search',
-    count = this.count,
-    limit = 20,
-  }: {
-    filter?: string
-    type?: 'search' | 'lazy'
-    count?: number
-    limit?: number
-  }): void => {
-    if (type === 'search') this.results = []
-    this.isSearching = true
-    const defaultUrl = 'https://itunes.apple.com/search?'
-    const queryOffset = count ? '&offset=' + count : ''
-    const queryLimit = '&limit=' + limit
-    fetch(defaultUrl + queryOffset + filter + queryLimit)
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.results) {
-          setTimeout(() => {
-            this.search({ ...res, filter })
-          })
-        } else {
-          this.isSearching = false
-        }
-      })
-      .catch(() => (this.isSearching = false))
+
+  public Lazy: () => void = async () => {
+    let isSearching = true
+    let lazyBtn = false
+    let data: SearchResponse | undefined
+
+    Object.assign(this.initParams, {
+      isSearching,
+      lazyBtn,
+    })
+
+    const response = await fetch(
+      this.defaultUrl +
+        `&offset=${this.count + 1}` +
+        this.filter +
+        `&limit=${this.limit}`,
+    )
+    if (response.ok) data = await response.json()
+    isSearching = false
+    lazyBtn = !!data && data.results.length > this.limit - 1
+
+    Object.assign(this.initParams, {
+      results: !!data?.results.length
+        ? this.results.concat(
+            data.results.map((element) => formatResult(element)),
+          )
+        : this.initParams.results,
+      isSearching,
+      lazyBtn,
+    })
   }
 }
 

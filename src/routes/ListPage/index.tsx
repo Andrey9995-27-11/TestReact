@@ -1,31 +1,31 @@
-import React from 'react'
-import { Observer, observer } from 'mobx-react'
-
-import List from 'components/List'
-import Search from 'components/Search'
+import { observer } from 'mobx-react-lite'
+import { List } from 'components/List'
+import { VariantList } from 'components/List/variants/list'
+import { Search } from 'components/Search'
+import { basketStore, listStore } from 'store'
+import { CallbacksContext } from 'common/context'
 
 import './styles.sass'
 
-import { basketStore } from 'store/BasketStore'
-import { listStore } from 'store/ListStore'
-
-const Route = () => {
+const Route = observer(() => {
+  const { addToBasket } = basketStore
+  const { Lazy } = listStore
   return (
-    <Observer>
-      {() => (
-        <section className="list-page">
-          <Search />
-          <List
-            type={'list'}
+    <CallbacksContext.Provider value={{ addToBasket, lazy: Lazy }}>
+      <section className="list-page">
+        <Search />
+        <List>
+          <VariantList
             inBasket={basketStore.inBasket}
             list={listStore.results}
-            lazy={listStore.lazy}
+            lazy={listStore.lazyBtn}
             isSearching={listStore.isSearching}
+            notFound={listStore.notFound}
           />
-        </section>
-      )}
-    </Observer>
+        </List>
+      </section>
+    </CallbacksContext.Provider>
   )
-}
+})
 
 export default Route

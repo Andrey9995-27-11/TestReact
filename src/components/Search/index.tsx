@@ -1,11 +1,11 @@
 import React from 'react'
-import Selecter from '../Selecter'
+import { Selecter } from '../Selecter'
 
 import './styles.sass'
 
 import { listStore } from 'store/ListStore'
 
-const Search = () => {
+export const Search = () => {
   const [type, setType] = React.useState('')
   const [value, setValue] = React.useState('')
 
@@ -18,7 +18,7 @@ const Search = () => {
     e.preventDefault()
     if (!value) return
     const filter = '&term=' + value + (type ? '&media=' + type : '')
-    listStore.asyncSearch({ filter })
+    listStore.Search(filter)
   }
 
   return (
@@ -29,6 +29,7 @@ const Search = () => {
           name="term"
           onChange={onChangeHandler}
           className="input"
+          value={value}
         />
       </div>
       <div className="search__field">
@@ -42,5 +43,3 @@ const Search = () => {
     </form>
   )
 }
-
-export default Search

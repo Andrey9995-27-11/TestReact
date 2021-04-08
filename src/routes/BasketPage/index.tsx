@@ -1,38 +1,43 @@
-import React from 'react'
-
-import List from 'components/List'
-import BasketResult from 'components/BasketResult'
+import { useEffect } from 'react'
+import { observer, Observer } from 'mobx-react-lite'
+import { List } from 'components/List'
+import { VariantBasket } from 'components/List/variants/basket'
+import { BasketResult } from 'components/BasketResult'
+import { basketStore } from 'store'
+import { CallbacksContext } from 'common/context'
 
 import './styles.sass'
-import { Observer } from 'mobx-react-lite'
 
-import { basketStore } from 'store/BasketStore'
-
-const Route = () => {
-  const [toRemove, setToRemove] = React.useState([])
-  React.useEffect(() => {
-    basketStore.responseBasketItems()
+const Route = observer(() => {
+  useEffect(() => {
+    basketStore.Search()
     return () => basketStore.destroy()
   })
+  const { removeFromBasket, setToRemove } = basketStore
   return (
-    <Observer>
-      {() => (
-        <section className="basket-page">
-          <List
-            type={'basket'}
-            list={basketStore.results}
-            inBasket={basketStore.inBasket}
-            setToRemove={setToRemove}
-            toRemove={toRemove}
-          />
-          <BasketResult
-            toRemove={toRemove}
-            summ={basketStore.summ.toFixed(2)}
-          />
-        </section>
-      )}
-    </Observer>
+    <CallbacksContext.Provider value={{ removeFromBasket, setToRemove }}>
+      <Observer>
+        {() => (
+          <section className="basket-page">
+            <List>
+              <VariantBasket
+                list={basketStore.results}
+                inBasket={basketStore.inBasket}
+                isSearching={basketStore.isSearching}
+                toRemove={basketStore.toRemove}
+              />
+            </List>
+            <BasketResult
+              summ={basketStore.summ.toFixed(2)}
+              toRemove={basketStore.toRemove}
+              listLength={!!basketStore.results.length}
+              removeAllHandler={basketStore.removeInToRemove}
+            />
+          </section>
+        )}
+      </Observer>
+    </CallbacksContext.Provider>
   )
-}
+})
 
 export default Route

@@ -1,15 +1,16 @@
-import { FC } from 'react'
-
+import React from 'react'
 import './styles.sass'
 
-import { themeStore } from 'store/ThemeStore'
+import { ThemeProvider } from 'common/context'
+import { observer } from 'mobx-react'
 
-const ThemeToggler = () => {
+const ThemeToggler = observer(() => {
+  const { themeToggle } = React.useContext(ThemeProvider)
   return (
-    <div className="theme-toggler" onClick={() => themeStore.themeToggle()}>
+    <div className="theme-toggler" onClick={themeToggle}>
       MODE
     </div>
   )
-}
+})
 
 export default ThemeToggler

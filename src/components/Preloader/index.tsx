@@ -1,6 +1,6 @@
 import './styles.sass'
 
-const Preloader = () => {
+export const Preloader = () => {
   return (
     <div className="preloader">
       <svg
@@ -29,5 +29,3 @@ const Preloader = () => {
     </div>
   )
 }
-
-export default Preloader

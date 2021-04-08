@@ -10,7 +10,7 @@ export class ThemeStore {
   constructor() {
     makeAutoObservable(this)
   }
-  public themeToggle() {
+  public themeToggle: () => void = () => {
     this.value = themes[this.value]
   }
 }

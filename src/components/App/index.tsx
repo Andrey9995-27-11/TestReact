@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { Route, Switch } from 'react-router-dom'
 
 /* routes */
@@ -6,20 +5,22 @@ import ListPage from 'routes/ListPage'
 import BasketPage from 'routes/BasketPage'
 import DetailPage from 'routes/DetailPage'
 import Page404 from 'routes/Page404'
+import { Game } from 'routes/Tutorials/Tutorial'
+import { Quotes } from 'routes/Tutorials/Quotes'
+import { FilterableProductTable } from 'routes/Tutorials/Shop'
+import { FilterableProductTable2, PRODUCTS } from 'routes/Tutorials/Test'
 
 /* components */
-import Header from '../Header'
-import Footer from '../Footer'
+import { Header } from 'components/Header'
+import { Body } from 'components/Body'
+import { Footer } from 'components/Footer'
 
 /* styles */
 import './styles.sass'
 
-import { themeStore } from 'store/ThemeStore'
-import { observer } from 'mobx-react-lite'
-
-const App = observer(() => {
+export const App = () => {
   return (
-    <div className={'body ' + themeStore.value}>
+    <Body>
       <Header />
       <main className="main">
         <div className="container">
@@ -33,6 +34,18 @@ const App = observer(() => {
             <Route path="/detail/:id">
               <DetailPage />
             </Route>
+            <Route path="/tutorial" exact>
+              <Game />
+            </Route>
+            <Route path="/quotes" exact>
+              <Quotes />
+            </Route>
+            <Route path="/shop" exact>
+              <FilterableProductTable />
+            </Route>
+            <Route path="/test" exact>
+              <FilterableProductTable2 products={PRODUCTS} />
+            </Route>
             <Route>
               <Page404 />
             </Route>
@@ -40,8 +53,6 @@ const App = observer(() => {
         </div>
       </main>
       <Footer />
-    </div>
+    </Body>
   )
-})
-
-export default App
+}

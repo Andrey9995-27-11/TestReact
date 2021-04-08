@@ -1,7 +1,6 @@
 export const BASKET_ADD = 'BASKET_ADD'
 export const BASKET_REMOVE = 'BASKET_REMOVE'
 export const BASKET_DEFAULT = 'BASKET_DEFAULT'
-export const BASKET_ADD_MULTI = 'BASKET_ADD_MULTI'
 export const BASKET_REMOVE_MULTI = 'BASKET_REMOVE_MULTI'
 export const SEARCH = 'SEARCH'
 export const DETAIL = 'DETAIL'

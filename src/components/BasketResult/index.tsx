@@ -1,30 +1,32 @@
 import { FC } from 'react'
+import { Button } from 'components/Button'
+
+import { BASKET_REMOVE_MULTI } from 'js/additional'
 
 import './styles.sass'
 
-type BasketResult = {
+interface BasketResultProps {
   toRemove?: Array<number>
   summ?: string
-  removeHandler?: Function
+  listLength?: boolean
+  removeAllHandler?: () => void
 }
 
-const BasketResult: FC<BasketResult> = ({ toRemove, summ, removeHandler }) => {
-  const onClickHandlerDelete = (e: any): void => {
-    e.preventDefault()
-    removeHandler && removeHandler()
-  }
+export const BasketResult: FC<BasketResultProps> = ({
+  toRemove,
+  listLength,
+  summ,
+  removeAllHandler,
+}) => {
   return (
     <div className="basket-bottom">
-      <div className="basket-bottom__summ">{summ}$</div>
-      {toRemove?.length ? (
-        <div className="btn" onClick={onClickHandlerDelete}>
-          Удалить
-        </div>
-      ) : (
-        false
+      {listLength && <div className="basket-bottom__summ">{summ}$</div>}
+      {!!toRemove?.length && (
+        <Button
+          btnEvent={BASKET_REMOVE_MULTI}
+          removeAllHandler={removeAllHandler}
+        />
       )}
     </div>
   )
 }
-
-export default BasketResult

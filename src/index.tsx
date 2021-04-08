@@ -2,16 +2,19 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
 
-import App from './components/App'
+import { ThemeProvider } from 'common/context'
+import { App } from 'components/App'
 
-import './css/index.sass'
+import 'css/index.sass'
 
-/* store */
+import { themeStore } from 'store'
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <ThemeProvider.Provider value={themeStore}>
+        <App />
+      </ThemeProvider.Provider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root'),

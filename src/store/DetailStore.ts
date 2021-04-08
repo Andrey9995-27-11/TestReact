@@ -12,9 +12,7 @@ export class DetailStore {
     fetch('https://itunes.apple.com/lookup?id=' + id)
       .then((res) => res.json())
       .then((res) => {
-        if (res.results) {
-          this.result = formatResult(res.results[0])
-        }
+        this.result = formatResult(res.results[0])
       })
   }
   public destroy() {

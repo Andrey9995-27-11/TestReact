@@ -1,37 +1,60 @@
 import { FC } from 'react'
-
-import { BASKET_ADD, BASKET_DEFAULT, BASKET_REMOVE } from '../../js/additional'
+import {
+  BASKET_ADD,
+  BASKET_DEFAULT,
+  BASKET_REMOVE,
+  BASKET_REMOVE_MULTI,
+  LAZY,
+} from 'js/additional'
+import { BasketEvent } from 'store'
 
 import './styles.sass'
-import { basketStore } from 'store/BasketStore'
 
-type Button = {
-  basketEvent?: string
+interface ButtonProps {
+  btnEvent?: string
   id?: number
-  basketHandler?: Function
+  basketHandler?: BasketEvent
+  lazyHandler?: () => void
+  removeAllHandler?: () => void
 }
 
-const Button: FC<Button> = ({ basketEvent, id }) => {
-  switch (basketEvent) {
+export const Button: FC<ButtonProps> = ({
+  btnEvent,
+  id,
+  basketHandler = () => {},
+  lazyHandler = () => {},
+  removeAllHandler = () => {},
+}) => {
+  const basketHandlerWrapper = (e: any) => {
+    e.preventDefault()
+    id && basketHandler([id])
+  }
+  switch (btnEvent) {
     case BASKET_REMOVE: {
-      const onClickHandler = (e: any): void => {
-        e.preventDefault()
-        id && basketStore.removeFromBasket([id])
-      }
       return (
-        <div className="btn" onClick={(e) => onClickHandler(e)}>
+        <div className="btn" onClick={basketHandlerWrapper}>
           Удалить из корзины
         </div>
       )
     }
     case BASKET_ADD: {
-      const onClickHandler = (e: any): void => {
-        e.preventDefault()
-        id && basketStore.addToBasket([id])
-      }
       return (
-        <div className="btn" onClick={(e) => onClickHandler(e)}>
+        <div className="btn" onClick={basketHandlerWrapper}>
           Добавить в корзину
+        </div>
+      )
+    }
+    case BASKET_REMOVE_MULTI: {
+      return (
+        <div className="btn" onClick={removeAllHandler}>
+          Удалить
+        </div>
+      )
+    }
+    case LAZY: {
+      return (
+        <div className="btn" onClick={lazyHandler}>
+          Ещё
         </div>
       )
     }
@@ -40,5 +63,3 @@ const Button: FC<Button> = ({ basketEvent, id }) => {
       return <div className="btn  btn--disable">Товар в корзине</div>
   }
 }
-
-export default Button
