@@ -1,6 +1,8 @@
 import { InBasket } from 'interface'
 import { FC, useContext } from 'react'
 
+import Checkbox from '@material-ui/core/Checkbox'
+
 import './styles.sass'
 
 import { CallbacksContext } from 'common/context'
@@ -13,7 +15,6 @@ type RemoveButtonProps = {
 export const RemoveButton: FC<RemoveButtonProps> = ({ id, toRemove }) => {
   const callbacks = useContext(CallbacksContext)
 
-  const CHECKED_CLASS = 'btn-remove--checked'
   const IS_CHECKED = toRemove?.includes(id)
 
   const toggleClass = (event: any): void => {
@@ -22,9 +23,12 @@ export const RemoveButton: FC<RemoveButtonProps> = ({ id, toRemove }) => {
   }
 
   return (
-    <div
-      className={'btn-remove ' + (IS_CHECKED && CHECKED_CLASS)}
+    <Checkbox
+      checked={IS_CHECKED}
       onClick={toggleClass}
-    ></div>
+      inputProps={{
+        'aria-label': 'secondary checkbox',
+      }}
+    ></Checkbox>
   )
 }

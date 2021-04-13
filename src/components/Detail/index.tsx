@@ -1,6 +1,5 @@
 import { FC } from 'react'
 import { Button } from 'components/Button'
-import { BASKET_ADD, BASKET_DEFAULT } from 'js/additional'
 import { Response, InBasket } from 'interface'
 import { BasketEvent } from 'store'
 
@@ -17,8 +16,23 @@ export const Detail: FC<DetailProps> = ({
   inBasket,
   basketHandler,
 }) => {
-  const getBtnEvent = (id?: number): string =>
-    id && inBasket?.includes(id) ? BASKET_DEFAULT : BASKET_ADD
+  const buttonTemplate = (id?: number) => {
+    let defaultProps
+    if (id && !inBasket?.includes(id)) {
+      defaultProps = {
+        value: 'Добавить в корзину',
+        onClick: (event: any) => {
+          event.preventDefault()
+          id && basketHandler && basketHandler([id])
+        },
+      }
+    } else {
+      defaultProps = {
+        value: 'Товар в корзине',
+      }
+    }
+    return <Button {...defaultProps} />
+  }
   return (
     <div
       className={'detail  detail--' + result?.wrapperType}
@@ -67,11 +81,7 @@ export const Detail: FC<DetailProps> = ({
           <div className="detail__th  detail__th--main">Цена</div>
           <div className="detail__th">{result?.PRICE + '$'}</div>
         </div>
-        <Button
-          btnEvent={getBtnEvent(result?.ID)}
-          id={result?.ID}
-          basketHandler={basketHandler}
-        />
+        {buttonTemplate(result?.ID)}
       </div>
     </div>
   )

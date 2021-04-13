@@ -50,7 +50,7 @@ export const Selecter: FC<SelecterProps> = ({ defaultType, onChange }) => {
   return (
     <div
       className={'selecter ' + selecter}
-      onClick={() => setSelecter(CLASS_ACTIVE)}
+      onClick={() => setSelecter(selecter === CLASS_ACTIVE ? '' : CLASS_ACTIVE)}
     >
       <input
         type="text"

@@ -10,10 +10,9 @@ interface InitParams {
   results: Array<Response>
   isSearching: boolean
   inBasket: InBasket
-  toRemove: InBasket
 }
 
-export type BasketEvent = (items: InBasket) => void
+export type BasketEvent = (items: InBasket, ...args: any) => void
 
 export class BasketStore {
   public defaultUrl = 'https://itunes.apple.com/lookup?id='
@@ -21,7 +20,6 @@ export class BasketStore {
     results: [],
     isSearching: false,
     inBasket: [],
-    toRemove: [],
   }
 
   constructor() {
@@ -47,10 +45,6 @@ export class BasketStore {
     return this.inBasket.length
   }
 
-  get toRemove(): InBasket {
-    return this.initParams.toRemove
-  }
-
   public get isSearching() {
     return this.initParams.isSearching
   }
@@ -68,24 +62,7 @@ export class BasketStore {
       results: this.results.filter(
         (element) => element.ID && inBasket.includes(element.ID),
       ),
-      toRemove: this.toRemove.filter((ID) => inBasket.includes(ID)),
     })
-  }
-
-  public removeInToRemove = () => {
-    this.removeFromBasket(this.toRemove)
-  }
-
-  public setToRemove = (id: number) => {
-    if (this.toRemove.includes(id)) {
-      Object.assign(this.initParams, {
-        toRemove: this.toRemove.filter((element) => element !== id),
-      })
-    } else {
-      Object.assign(this.initParams, {
-        toRemove: this.toRemove.concat(id),
-      })
-    }
   }
 
   public async Search() {

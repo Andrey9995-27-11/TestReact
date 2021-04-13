@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { observer, Observer } from 'mobx-react-lite'
 import { List } from 'components/List'
 import { VariantBasket } from 'components/List/variants/basket'
@@ -9,33 +9,49 @@ import { CallbacksContext } from 'common/context'
 import './styles.sass'
 
 const Route = observer(() => {
+  const [toRemove, setToRemoveHandler] = useState<Array<number>>([])
+
+  const setToRemove = (id: number) => {
+    if (toRemove.includes(id)) {
+      setToRemoveHandler(toRemove.filter((element) => element !== id))
+    } else {
+      setToRemoveHandler(toRemove.concat(id))
+    }
+  }
+
+  const { removeFromBasket } = basketStore
+
   useEffect(() => {
     basketStore.Search()
     return () => basketStore.destroy()
-  })
-  const { removeFromBasket, setToRemove } = basketStore
+  }, [!!basketStore.inBasket.length])
+
+  useEffect(() => {
+    setToRemoveHandler(
+      toRemove.filter((id) => basketStore.inBasket.includes(id)),
+    )
+  }, [basketStore.inBasket.length])
+
   return (
     <CallbacksContext.Provider value={{ removeFromBasket, setToRemove }}>
-      <Observer>
-        {() => (
-          <section className="basket-page">
-            <List>
-              <VariantBasket
-                list={basketStore.results}
-                inBasket={basketStore.inBasket}
-                isSearching={basketStore.isSearching}
-                toRemove={basketStore.toRemove}
-              />
-            </List>
-            <BasketResult
-              summ={basketStore.summ.toFixed(2)}
-              toRemove={basketStore.toRemove}
-              listLength={!!basketStore.results.length}
-              removeAllHandler={basketStore.removeInToRemove}
-            />
-          </section>
-        )}
-      </Observer>
+      <section className="basket-page">
+        <List>
+          <VariantBasket
+            results={basketStore.results}
+            inBasket={basketStore.inBasket}
+            isSearching={basketStore.isSearching}
+            toRemove={toRemove}
+          />
+        </List>
+        <BasketResult
+          summ={basketStore.summ.toFixed(2)}
+          toRemove={toRemove}
+          listLength={!!basketStore.results.length}
+          removeAllHandler={() => {
+            removeFromBasket(toRemove)
+          }}
+        />
+      </section>
     </CallbacksContext.Provider>
   )
 })

@@ -4,6 +4,7 @@ import { Selecter } from '../Selecter'
 import './styles.sass'
 
 import { listStore } from 'store/ListStore'
+import { Button } from 'components/Button'
 
 export const Search = () => {
   const [type, setType] = React.useState('')
@@ -36,9 +37,7 @@ export const Search = () => {
         <Selecter defaultType={type} onChange={setType} />
       </div>
       <div className="search__field">
-        <button className="btn  btn--search" onClick={onSubmitHandler}>
-          Найти
-        </button>
+        <Button value="Найти" onClick={onSubmitHandler}></Button>
       </div>
     </form>
   )
